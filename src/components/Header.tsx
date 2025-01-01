@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { navBarList } from "@/constants";
 import Container from "./Container";
 import Logo from "./Logo";
@@ -6,8 +9,22 @@ import Link from "next/link";
 import { HiMenuAlt2 } from "react-icons/hi";
 
 const Header = () => {
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsFixed(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="w-full h-20 bg-accentWhite border-b-[1px] border-b-lightText/50">
+    <header
+      className={`w-full h-20 bg-accentWhite border-b-[1px] border-b-lightText/50 transition-all duration-600 ease-in-out ${isFixed ? "fixed top-0 z-50 shadow-lg bg-white translate-y-0" : "static translate-y-0"}`}
+    >
       <Container className="h-full flex items-center justify-between gap-5 lg:gap-10">
         <Logo />
         <SearchInput />
