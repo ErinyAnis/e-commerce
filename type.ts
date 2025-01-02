@@ -30,6 +30,8 @@ type Slug = {
 }
 
 type Category = {
+  brand: string;
+  title: ReactI18NextChildren | Iterable<ReactI18NextChildren>;
   _id: string;
   name: string;
 }

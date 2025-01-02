@@ -8,7 +8,7 @@ const productsQuery = groq`*[_type == "product"]{
     ...
 }|order(_createdAt asc)`;
 
-const bestSellersQuery = groq`*[_type == "product" && position == "Bestsellers]{
+const bestSellersQuery = groq`*[_type == "product" && position == "Bestsellers"]{
     ...
 }|order(_createdAt asc)`;
 
