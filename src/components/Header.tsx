@@ -9,11 +9,11 @@ import Link from "next/link";
 import { HiMenuAlt2 } from "react-icons/hi";
 
 const Header = () => {
-  const [isFixed, setIsFixed] = useState(false);
+  const [shadow, setShadow] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsFixed(window.scrollY > 50);
+      setShadow(window.scrollY > 30);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <header
-      className={`w-full h-20 bg-accentWhite border-b-[1px] border-b-lightText/50 transition-all duration-600 ease-in-out ${isFixed ? "fixed top-0 z-50 shadow-lg bg-white translate-y-0" : "static translate-y-0"}`}
+      className={`sticky top-0 left-0 w-full h-20 bg-accentWhite border-b-[1px] border-b-lightText/50 transition-all duration-600 ease-in-out z-50 ${shadow ? "shadow-lg" : "static"}`}
     >
       <Container className="h-full flex items-center justify-between gap-5 lg:gap-10">
         <Logo />

@@ -16,7 +16,7 @@ const Banner = async () => {
       <div className="bg-bgLight md:col-span-2 relative flex flex-col lg:flex-row items-center justify-center lg:justify-end rounded-lg overflow-hidden group p-4 lg:p-6 gap-4 lg:gap-0">
         <div className="lg:h-full z-10 lg:absolute lg:p-0 left-10 top-0 flex flex-col justify-center items-start gap-5 lg:gap-10">
           <div className="flex flex-col gap-1 md:gap-3 m-auto">
-            <button className="bg-green-500 text-white rounded-full w-20 py-1 text-xs lg:text-sm font-semibold hover:bg-green-600 hoverEffect">
+            <button className="bg-green-600 text-white rounded-full w-20 py-1 text-xs lg:text-sm font-semibold">
               Sale {singleBanner?.price}
             </button>
             <p className="text-xl md:text-3xl font-semibold">
@@ -39,6 +39,7 @@ const Banner = async () => {
           alt={singleBanner?.title}
           width={380}
           height={380}
+          priority
           className="object-contain h-32 md:h-44 lg:h-60 lg:ml-auto max-h-[500px] group-hover:scale-105 hoverEffect lg:mr-[-18px]"
         />
       </div>
@@ -74,6 +75,7 @@ const Banner = async () => {
               alt={item?.title}
               width={300}
               height={300}
+              priority
               className="object-contain h-32 lg:h-44 lg:w-1/2 group-hover:scale-105 hoverEffect m-auto lg:m-0"
             />
           </div>

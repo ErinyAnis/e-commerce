@@ -27,14 +27,14 @@ type ImageAsset = {
 type Slug = {
   current: string;
   _type: "slug";
-}
+};
 
 type Category = {
   brand: string;
   title: ReactI18NextChildren | Iterable<ReactI18NextChildren>;
   _id: string;
   name: string;
-}
+};
 
 export interface ProductData {
   title: string;
@@ -52,4 +52,18 @@ export interface ProductData {
   _id: string;
   position: string;
   rowprice: number;
+}
+
+export interface UserInfo {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export interface StoreState {
+  shoppers: {
+    cart: ProductData[];
+    wishList: ProductData[];
+    userInfo: UserInfo | null;
+  };
 }

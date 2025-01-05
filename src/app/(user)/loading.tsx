@@ -2,7 +2,7 @@ import Loader from "@/components/Loader"
 
 const LoadingPage = () => {
   return (
-    <Loader title="Loading..." />
+    <Loader />
   )
 }
 
