@@ -11,7 +11,20 @@ import Link from "next/link";
 import FormattedPrice from "./FormattedPrice";
 import Button from "./Button";
 
-const CartContainer = ({ session }: unknown) => {
+interface User {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+}
+
+interface Props {
+  session: {
+    user?: User;
+    expires?: string;
+  } | null;
+}
+
+const CartContainer = ({ session }: Props) => {
   const { cart } = useSelector((state: StoreState) => state?.shoppers); //to grap the data from our store
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,8 +60,8 @@ const CartContainer = ({ session }: unknown) => {
             <div className="max-w-7xl flex justify-end">
               <div className="w-96 flex flex-col gap-4">
                 <div>
-                  <h1 className="text-2xl font-semibold text-right">
-                    Cart totals
+                  <h1 className="text-2xl font-semibold mb-2">
+                    Cart totals:
                   </h1>
                   <div>
                     <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 px-4 text-lg font-medium">
@@ -68,7 +81,7 @@ const CartContainer = ({ session }: unknown) => {
                 >
                   Proceed to checkout
                 </Button>
-                {session?.user && (
+                {!session?.user && (
                   <p className="text-center text-sm font-medium text-lightRed -mt-2.5">
                     Please sign in to make Checkout
                   </p>
