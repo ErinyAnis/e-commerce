@@ -8,8 +8,10 @@ import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import FormattedPrice from "./FormattedPrice";
+import Button from "./Button";
 
-const CartContainer = () => {
+const CartContainer = ({ session }: unknown) => {
   const { cart } = useSelector((state: StoreState) => state?.shoppers); //to grap the data from our store
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,6 +44,37 @@ const CartContainer = () => {
             >
               Reset cart
             </button>
+            <div className="max-w-7xl flex justify-end">
+              <div className="w-96 flex flex-col gap-4">
+                <div>
+                  <h1 className="text-2xl font-semibold text-right">
+                    Cart totals
+                  </h1>
+                  <div>
+                    <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 px-4 text-lg font-medium">
+                      Subtotal <FormattedPrice amount={250} />
+                    </p>
+                    <p className="flex items-center justify-between border-x-[1px] border-gray-400 py-1.5 px-4 text-lg font-medium">
+                      Shipping Charge <FormattedPrice amount={250} />
+                    </p>
+                    <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 px-4 text-lg font-medium">
+                      Total <FormattedPrice amount={250} />
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  disabled={!session?.user}
+                  className="py-3 px-8 rounded-sm disabled:bg-darkOrange/40"
+                >
+                  Proceed to checkout
+                </Button>
+                {session?.user && (
+                  <p className="text-center text-sm font-medium text-lightRed -mt-2.5">
+                    Please sign in to make Checkout
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
 
           {isModalOpen && (
@@ -69,27 +102,32 @@ const CartContainer = () => {
           )}
         </div>
       ) : (
-        <motion.div>
-          <div className="flex flex-col items-center gap-3">
-            <Image
-              src={"/empty-cart.png"}
-              alt="empty cart"
-              width={280}
-              height={280}
-              className="h-28 w-28 lg:h-52 lg:w-52 object-contain"
-            />
-            <h1 className="text-lg lg:text-xl font-bold uppercase">Your cart is empty</h1>
-            <p className="text-sm lg:text-base text-center px-10 -mt-2 text-lightText">
-              Explore our collection and find something you love to fill your
-              cart!
-            </p>
-            <Link
-              href={"/shop"}
-              className="bg-lightOrange text-white hover:bg-darkOrange hoverEffect text-sm lg:text-base px-5 lg:px-7 py-2.5 mt-3 rounded-lg font-semibold"
-            >
-              Continue Shopping
-            </Link>
-          </div>
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-center gap-3 py-20"
+        >
+          <Image
+            src={"/empty-cart.png"}
+            alt="empty cart"
+            width={280}
+            height={280}
+            className="h-28 w-28 lg:h-52 lg:w-52 object-contain"
+          />
+          <h1 className="text-lg lg:text-xl font-bold uppercase">
+            Your cart is empty
+          </h1>
+          <p className="text-sm lg:text-base text-center px-10 -mt-2 text-lightText">
+            Explore our collection and find something you love to fill your
+            cart!
+          </p>
+          <Link
+            href={"/"}
+            className="bg-lightOrange text-white hover:bg-darkOrange hoverEffect text-sm lg:text-base px-5 lg:px-7 py-2.5 mt-3 rounded-lg font-semibold"
+          >
+            Continue Shopping
+          </Link>
         </motion.div>
       )}
     </div>

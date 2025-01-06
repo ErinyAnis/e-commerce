@@ -1,7 +1,6 @@
 import { getBannersData } from "@/lib/getData";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import Button from "./Button";
 import { BannerData } from "../../type";
 import Link from "next/link";
 import FormattedPrice from "./FormattedPrice";
@@ -28,9 +27,9 @@ const Banner = async () => {
             <p className="md:text-sm text-black/60 font-medium lg:max-w-44 max-w-52">
               {singleBanner?.description}
             </p>
-            <Button className="px-4 py-2 text-sm w-fit mt-4 lg:mt-6">
+            <Link href={"/shop"} className="bg-lightOrange text-white hover:bg-darkOrange hoverEffect md:px-8 md:py-3 rounded-full font-semibold px-4 py-2 text-sm w-fit mt-4 lg:mt-6">
               Shop Now
-            </Button>
+            </Link>
           </div>
         </div>
 
