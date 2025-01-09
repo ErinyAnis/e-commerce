@@ -4,7 +4,6 @@ import Container from '@/components/Container';
 
 const CartPage = async () => {
   const session = await auth();
-  console.log(session);
   return (
     <Container className='py-10'>
       <CartContainer session={session} />

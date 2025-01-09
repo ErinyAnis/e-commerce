@@ -1,6 +1,6 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductData, StoreState } from "../../type";
 import CartItem from "./CartItem";
 import { resetCart } from "@/redux/shoppersSlice";
@@ -26,6 +26,7 @@ interface Props {
 
 const CartContainer = ({ session }: Props) => {
   const { cart } = useSelector((state: StoreState) => state?.shoppers); //to grap the data from our store
+  const [ totalAmt, setTotalAmt]=useState(0)
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -33,6 +34,32 @@ const CartContainer = ({ session }: Props) => {
     dispatch(resetCart());
     toast.success("Cart reset successfully");
     setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+      let price = 0;
+      cart.map((item) => {
+        price += item?.price * item?.quantity;
+        return price;
+      });
+      setTotalAmt(price);
+    }, [cart]);
+
+  const handleCheckout = async () => {
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items: cart,
+        email: session?.user?.email,
+      }),
+    });
+    const { url } = await response.json();
+    if (url) {
+      window.location.href = url;
+    }
   };
 
   return (
@@ -60,22 +87,21 @@ const CartContainer = ({ session }: Props) => {
             <div className="max-w-7xl flex justify-end">
               <div className="w-96 flex flex-col gap-4">
                 <div>
-                  <h1 className="text-2xl font-semibold mb-2">
-                    Cart totals:
-                  </h1>
+                  <h1 className="text-2xl font-semibold mb-2">Cart totals:</h1>
                   <div>
                     <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 px-4 text-lg font-medium">
-                      Subtotal <FormattedPrice amount={250} />
+                      Subtotal <FormattedPrice amount={totalAmt} />
                     </p>
                     <p className="flex items-center justify-between border-x-[1px] border-gray-400 py-1.5 px-4 text-lg font-medium">
-                      Shipping Charge <FormattedPrice amount={250} />
+                      Shipping Charge <FormattedPrice amount={15} />
                     </p>
                     <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 px-4 text-lg font-medium">
-                      Total <FormattedPrice amount={250} />
+                      Total <FormattedPrice amount={totalAmt + 15} />
                     </p>
                   </div>
                 </div>
                 <Button
+                  onClick={handleCheckout}
                   disabled={!session?.user}
                   className="py-3 px-8 rounded-sm disabled:bg-darkOrange/40"
                 >
