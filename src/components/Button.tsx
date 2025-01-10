@@ -13,7 +13,7 @@ const Button = ({ children, className, disabled, onClick }: Props) => {
     onClick={onClick}
     disabled={disabled}
       className={twMerge(
-        "bg-lightOrange text-base text-white hover:bg-darkOrange hoverEffect md:px-8 md:py-3 rounded-full font-semibold",
+        "bg-lightOrange text-base text-white hover:bg-darkOrange hoverEffect px-5 py-2 md:px-8 md:py-3 rounded-full font-semibold",
         className
       )}
     >

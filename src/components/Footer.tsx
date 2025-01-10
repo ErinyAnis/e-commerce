@@ -1,31 +1,35 @@
 import { footerData } from "@/constants";
 import Container from "./Container";
 import Link from "next/link";
+import Logo from "./Logo";
 
 const Footer = () => {
   return (
-    <footer className="bg-bgLight py-5">
-      <Container className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+    <footer className="bg-bgLight py-4">
+      <Container className="py-10">
+        <Logo className="mb-5 w-fit" />
+        <div className=" grid grid-cols-2 lg:grid-cols-4 gap-5">
         {footerData.map((item) => (
           <div key={item?._id}>
-            <h3 className="text-darkOrange/90 text-lg font-semibold mb-3">
+            <h3 className="text-darkOrange/90 text-base lg:text-lg font-semibold mb-1 lg:mb-2">
               {item?.title}
             </h3>
-            <div className="flex flex-col gap-0.5">
+            <div className="flex flex-col lg:gap-0.5">
               {item?.listItem?.map((list) =>
                 list?.listData?.map((data) => (
                   <Link
-                    key={data}
-                    href="/"
-                    className="py-1 text-accent font-medium hover:text-darkOrange hoverEffect"
+                    key={data.title}
+                    href={data.href}
+                    className="py-1 text-accent font-medium hover:text-darkOrange hoverEffect text-sm lg:text-base"
                   >
-                    {data}
+                    {data.title}
                   </Link>
                 ))
               )}
             </div>
           </div>
         ))}
+        </div>
       </Container>
     </footer>
   );

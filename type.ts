@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface BannerData {
   _id: string;
   _type: string;
@@ -31,7 +33,7 @@ type Slug = {
 
 type Category = {
   brand: string;
-  title: ReactI18NextChildren | Iterable<ReactI18NextChildren>;
+  title: ReactNode | Iterable<ReactNode>;
   _id: string;
   name: string;
 };
@@ -66,4 +68,17 @@ export interface StoreState {
     wishList: ProductData[];
     userInfo: UserInfo | null;
   };
+}
+
+interface User {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+}
+
+export interface Session {
+  session: {
+    user?: User;
+    expires?: string;
+  } | null;
 }

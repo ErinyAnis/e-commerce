@@ -6,7 +6,7 @@ const Logo = ({ className }: { className?: string }) => {
     <Link href={"/"}>
       <h2
         className={twMerge(
-          "text-2xl text-accent hover:text-darkOrange font-bold uppercase hoverEffect cursor-pointer relative group overflow-hidden",
+          "text-xl lg:text-2xl text-accent hover:text-darkOrange font-bold uppercase hoverEffect cursor-pointer relative group overflow-hidden",
           className
         )}
       >

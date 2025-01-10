@@ -16,17 +16,15 @@ export const navBarList = [
 export const footerData = [
   {
     _id: 2221,
-    title: "Get to know Us",
+    title: "Get to Know Us",
     listItem: [
       {
         _id: "001",
         listData: [
-          "careers",
-          "Blog",
-          "About Amazon",
-          "Investors Relations",
-          "Shoppers Devices",
-          "Shoppers Science",
+          { title: "About Us", href: "/" },
+          { title: "Careers", href: "/" },
+          { title: "Press Releases", href: "/" },
+          { title: "Corporate Information", href: "/" },
         ],
       },
     ],
@@ -38,13 +36,10 @@ export const footerData = [
       {
         _id: "002",
         listData: [
-          "Sell products on Shoppers",
-          "Sell on Amazon Business",
-          "sell apps on Amazon",
-          "Become an affiliate",
-          "Sell Products with us",
-          "Host a Shoppers Hub",
-          "See More Make Money With Us",
+          { title: "Sell on Our Platform", href: "/" },
+          { title: "Affiliate Marketing", href: "/" },
+          { title: "Advertise Your Products", href: "/" },
+          { title: "Become a Vendor", href: "/" },
         ],
       },
     ],
@@ -56,10 +51,9 @@ export const footerData = [
       {
         _id: "003",
         listData: [
-          "Shoppers Business Card",
-          "Shop with points",
-          "Reload your Balance",
-          "Shoppers Currency Convertor",
+          { title: "Gift Cards", href: "/" },
+          { title: "Reload Your Balance", href: "/" },
+          { title: "Currency Converter", href: "/" },
         ],
       },
     ],
@@ -71,14 +65,10 @@ export const footerData = [
       {
         _id: "004",
         listData: [
-          "Shoppers and COVID-19",
-          "Your Account",
-          "Your Orders",
-          "Shipping Rates & Policies",
-          "Returns & Replacements",
-          "Manage Your Content and Devices",
-          "Shoppers Assistant",
-          "FAQ & Help",
+          { title: "Your Account", href: "/dashboard" },
+          { title: "Your Orders", href: "/orders" },
+          { title: "Returns & Replacements", href: "/" },
+          { title: "Privacy Policy", href: "/" },
         ],
       },
     ],

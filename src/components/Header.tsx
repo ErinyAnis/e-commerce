@@ -10,6 +10,7 @@ import { HiMenuAlt2 } from "react-icons/hi";
 
 const Header = () => {
   const [shadow, setShadow] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // Track menu open state
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,18 +35,51 @@ const Header = () => {
               {item?.title}
             </Link>
           ))}
-          <Link href={"/signin"} className="navBarItem">
-            Sign in
-          </Link>
+          
           <Link href={"/orders"} className="navBarItem">
             Orders
           </Link>
           <Link href={"/studio"} className="navBarItem">
             Studio
           </Link>
+          <Link href={"/signin"} className="navBarItem">
+            Sign in
+          </Link>
         </div>
-        <HiMenuAlt2 className="inline-flex md:hidden cursor-pointer text-2xl hover:text-darkOrange hoverEffect" />
+
+        {/* Menu Icon */}
+        <HiMenuAlt2
+          className="inline-flex md:hidden cursor-pointer text-2xl hover:text-darkOrange hoverEffect"
+          onClick={() => setMenuOpen(!menuOpen)} // Toggle the menu open state
+        />
       </Container>
+      {/* Mobile Menu (Conditional) */}
+      <div
+        className={`md:hidden text-sm mt-0.5 py-12 px-8 h-screen w-[75%] flex flex-col items-center gap-10 transition-all duration-300 ease-in-out bg-white shadow-md ${
+          menuOpen ? "translate-x-0" : "-translate-x-[100%]"
+        }`}
+      >
+        {navBarList?.map((item) => (
+          <Link
+            key={item?.title}
+            href={item?.link}
+            className="navBarItem text-lg"
+          >
+            {item?.title}
+          </Link>
+        ))}
+        
+        <Link href={"/orders"} className="navBarItem text-lg">
+          Orders
+        </Link>
+        <Link href={"/studio"} className="navBarItem text-lg">
+          Studio
+        </Link>
+        <Link href={"/signin"} className="navBarItem text-lg">
+          Sign in
+        </Link>
+        
+      </div>
     </header>
   );
 };
