@@ -31,7 +31,7 @@ type Slug = {
   _type: "slug";
 };
 
-type Category = {
+export type Category = {
   brand: string;
   title: ReactNode | Iterable<ReactNode>;
   _id: string;

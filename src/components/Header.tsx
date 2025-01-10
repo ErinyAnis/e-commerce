@@ -8,9 +8,13 @@ import SearchInput from "./SearchInput";
 import Link from "next/link";
 import { HiMenuAlt2 } from "react-icons/hi";
 
+import { useSession, signOut } from "next-auth/react";
+
 const Header = () => {
   const [shadow, setShadow] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // Track menu open state
+
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,16 +39,27 @@ const Header = () => {
               {item?.title}
             </Link>
           ))}
-          
+
           <Link href={"/orders"} className="navBarItem">
             Orders
           </Link>
-          <Link href={"/studio"} className="navBarItem">
-            Studio
-          </Link>
-          <Link href={"/signin"} className="navBarItem">
-            Sign in
-          </Link>
+
+          {/* Show the admin link only if the user is an admin */}
+          {session?.user.isAdmin && (
+            <Link href={"/studio"} className="navBarItem">
+              Studio
+            </Link>
+          )}
+
+          {session?.user ? (
+            <button onClick={() => signOut()} className="navBarItem">
+              Logout
+            </button>
+          ) : (
+            <Link href={"/signin"} className="navBarItem">
+              Sign in
+            </Link>
+          )}
         </div>
 
         {/* Menu Icon */}
@@ -68,7 +83,7 @@ const Header = () => {
             {item?.title}
           </Link>
         ))}
-        
+
         <Link href={"/orders"} className="navBarItem text-lg">
           Orders
         </Link>
@@ -78,7 +93,6 @@ const Header = () => {
         <Link href={"/signin"} className="navBarItem text-lg">
           Sign in
         </Link>
-        
       </div>
     </header>
   );
