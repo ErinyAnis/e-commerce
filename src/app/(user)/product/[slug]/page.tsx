@@ -21,7 +21,7 @@ export const generateStaticParams = async () => {
 };
 
 interface Props {
-  params: { slug: string };
+  params: Record<string, string>;
 }
 
 const SingleProductPage = async ({ params }: Props) => {
