@@ -1,3 +1,4 @@
+import { Category } from "@/type";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
@@ -84,7 +85,16 @@ export default defineType({
     select: {
       title: "title",
       media: "image",
-      position: "position",
+      categories: "category",
+    },
+    prepare(selection) {
+      const { title, media, categories } = selection;
+      const categoryTitles = categories?.map((cat: Category) => cat?.title).join(", ");
+      return {
+        title,
+        media,
+        subtitle: categoryTitles || "No categories assigned",
+      };
     },
   },
 });

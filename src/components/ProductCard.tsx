@@ -13,7 +13,7 @@ const ProductCard = ({ item }: { item: ProductData }) => {
         <Link href={`/product/${item?.slug.current}`}>
           <Image
             src={urlFor(item?.image).url()}
-            alt={item?._type}
+            alt={item?.title}
             width={400}
             height={400}
             loading="lazy"

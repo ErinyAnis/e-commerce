@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+// import { ReactNode } from "react";
 
 export interface BannerData {
   _id: string;
@@ -32,10 +32,10 @@ type Slug = {
 };
 
 export type Category = {
-  brand: string;
-  title: ReactNode | Iterable<ReactNode>;
-  _id: string;
-  name: string;
+  title: string;   
+  _id: string;     
+  name?: string;   
+  brand: string;   
 };
 
 export interface ProductData {

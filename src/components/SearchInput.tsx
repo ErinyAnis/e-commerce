@@ -1,11 +1,16 @@
-"use client";
-
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 
 const SearchInput = () => {
   const [search, setSearch] = useState("");
+
+  const handleSearch = () => {
+    // Redirect to the search results page with the search query in the URL
+    if (search.trim()) {
+      window.location.href = `/search?q=${search}`;
+    }
+  };
 
   return (
     <div className="w-full md:inline-flex flex-1 h-12 relative">
@@ -25,6 +30,7 @@ const SearchInput = () => {
         />
       )}
       <button
+        onClick={handleSearch}
         className="bg-lightOrange text-accentWhite absolute right-0 px-3.5 py-1.5 mr-2
           text-sm hover:bg-darkOrange hoverEffect font-medium top-2"
       >
