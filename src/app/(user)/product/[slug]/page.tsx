@@ -24,7 +24,8 @@ export const generateStaticParams = async () => {
 //   params: { slug: string };
 // }
 
-const SingleProductPage = async ({ params }: never) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SingleProductPage = async ({ params }: any) => {
   const { slug } = params;
   const query = groq`*[_type == "product" && slug.current == $slug][0]{
     ...,
