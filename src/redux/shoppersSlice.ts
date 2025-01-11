@@ -65,7 +65,9 @@ export const shopperSlice = createSlice({
       const existingProduct = state.wishList.find(
         (item) => item._id === action.payload._id
       );
-      state.cart.push(action.payload);
+      if (!existingProduct) {
+        state.wishList.push(action.payload); // Add to wishList if not already present
+      }
     },
 
     resetWishList: (state) => {

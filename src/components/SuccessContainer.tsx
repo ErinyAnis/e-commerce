@@ -5,6 +5,7 @@ import { StoreState } from "@/type";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
 import Loader from "./Loader";
 import {
   HiCheckCircle,
@@ -31,7 +32,7 @@ const SuccessContainer = ({ id }: { id: string }) => {
     setTotalAmt(price);
   }, [cart]);
 
-  const handleSaveOrder = async () => {
+  const handleSaveOrder = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch("/api/saveorder", {
@@ -47,7 +48,6 @@ const SuccessContainer = ({ id }: { id: string }) => {
         }),
       });
       const data = await response.json();
-      
 
       if (data?.success) {
         setLoading(false);
@@ -59,13 +59,13 @@ const SuccessContainer = ({ id }: { id: string }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [cart, session?.user?.email, id, totalAmt, dispatch]);
 
   useEffect(() => {
     if (session?.user && cart?.length) {
       handleSaveOrder();
     }
-  }, [session?.user, cart?.length]);
+  }, [session?.user, cart?.length, handleSaveOrder]);
 
   return (
     <div>
