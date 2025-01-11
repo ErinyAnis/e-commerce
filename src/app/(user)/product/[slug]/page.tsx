@@ -10,6 +10,7 @@ import { MdStar } from "react-icons/md";
 import AddToCartButton from "@/components/AddToCartButton";
 import Container from "@/components/Container";
 
+// Use the App Directory's new data-fetching method
 export const generateStaticParams = async () => {
   const paths = await client.fetch(
     groq`*[_type == "product"]{ "slug": slug.current }`
