@@ -10,14 +10,25 @@ import { MdStar } from "react-icons/md";
 import AddToCartButton from "@/components/AddToCartButton";
 import Container from "@/components/Container";
 
-interface Props {
-  params: {
-    slug: string;
-  };
+interface PageParams {
+  slug: string;
 }
 
-const SingleProductPage = async ({ params: { slug } }: Props) => {
-  // Fetch product data based on slug
+// Fetch product data based on slug
+export async function generateStaticParams() {
+  const query = groq`*[_type == "product"]{ "slug": slug.current }`;
+  const slugs: { slug: string }[] = await client.fetch(query);
+
+  return slugs.map(({ slug }) => ({ slug }));
+}
+
+const SingleProductPage = async ({
+  params,
+}: {
+  params: PageParams;
+}) => {
+  const { slug } = params;
+
   const query = groq`*[_type == "product" && slug.current == $slug][0]{
     ...,
     category[]->{
@@ -66,7 +77,7 @@ const SingleProductPage = async ({ params: { slug } }: Props) => {
                     className="text-lg font-bold"
                   />
                   <p className="text-sm">
-                    you saved
+                    You saved
                     <span className="mx-1.5">
                       <FormattedPrice
                         amount={product?.rowprice - product?.price}
@@ -79,8 +90,7 @@ const SingleProductPage = async ({ params: { slug } }: Props) => {
                 <div className="flex items-center gap-3">
                   <div className="text-base text-lightText flex items-center">
                     {Array?.from({ length: 5 })?.map((_, index) => {
-                      const filled =
-                        index + 1 <= Math.floor(product?.ratings);
+                      const filled = index + 1 <= Math.floor(product?.ratings);
                       const halfFilled =
                         index + 1 > Math.floor(product?.ratings) &&
                         index < Math.ceil(product?.ratings);
@@ -114,7 +124,7 @@ const SingleProductPage = async ({ params: { slug } }: Props) => {
                 <p className="text-sm tracking-wide text-gray-600">
                   {product?.description}
                 </p>
-                <div className="flex flex-col md:flex-row gap-2 md:gap-7 md:items-center ">
+                <div className="flex flex-col md:flex-row gap-2 md:gap-7 md:items-center">
                   <div className="flex gap-2">
                     <h4 className="text-base font-medium">Brand:</h4>
                     <span>{product?.brand ? product?.brand : "unknown"}</span>
