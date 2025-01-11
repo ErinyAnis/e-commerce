@@ -10,14 +10,15 @@ import { MdStar } from "react-icons/md";
 import AddToCartButton from "@/components/AddToCartButton";
 import Container from "@/components/Container";
 
-type Params = { slug: string[] };
-
 interface Props {
-  params: Params;
+  params: Promise<{ slug: string[] }>;
 }
 
-const SingleProductPage = async ({ params }: Props) => {
-  const { slug } = params;  // No need to await here anymore
+const SingleProductPage = async (props: Props) => {
+  const params = await props.params;
+  const {
+    slug
+  } = params;
 
   // Fetch product data based on slug
   const query = groq`*[_type == "product" && slug.current == $slug][0]{
