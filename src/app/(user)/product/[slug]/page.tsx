@@ -20,11 +20,11 @@ export const generateStaticParams = async () => {
   }));
 };
 
-interface Props {
-  params: Record<string, string>;
-}
+// interface Props {
+//   params: { slug: string };
+// }
 
-const SingleProductPage = async ({ params }: Props) => {
+const SingleProductPage = async ({ params }: never) => {
   const { slug } = params;
   const query = groq`*[_type == "product" && slug.current == $slug][0]{
     ...,
