@@ -1,13 +1,14 @@
 import SuccessContainer from "@/components/SuccessContainer";
 import { redirect } from "next/navigation";
 
-interface Props {
-  searchParams: {
-    session_id: string | null;
-  };
-}
+// interface Props {
+//   searchParams: {
+//     session_id: string | null;
+//   };
+// }
 
-const SuccessPage = ({ searchParams }: Props) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SuccessPage = ({ searchParams }: any) => {
   const id = searchParams?.session_id;
   if (!id) {
     redirect("/");
